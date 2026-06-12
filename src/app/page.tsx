@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getHomeContent } from "@/sanity/lib/queries";
 
+export const dynamic = "force-dynamic";
+
 const defaultSections = [
 	{
 		_type: "heroSection",

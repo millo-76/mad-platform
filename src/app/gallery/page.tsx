@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { getGalleryItems } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 
+export const dynamic = 'force-dynamic';
+
 const defaultGalleryItems = [
   {
     _id: 1,
