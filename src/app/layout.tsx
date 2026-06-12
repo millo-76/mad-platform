@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MAD Platform",
+  title: "Mad Made Photography",
   description: "Home, gallery, and contact framework for a portfolio site.",
 };
 
@@ -24,8 +24,8 @@ export default function RootLayout({
         <div className="site-wrapper">
           <header className="site-header">
             <div className="container nav-row">
-              <Link href="/" className="brand" aria-label="MAD Platform home">
-                MAD Platform
+              <Link href="/" className="brand" aria-label="Mad Made Photography home">
+                Mad Made Photography
               </Link>
               <nav aria-label="Main navigation">
                 <ul className="nav-list">
@@ -43,7 +43,7 @@ export default function RootLayout({
 
           <footer className="site-footer">
             <div className="container">
-              <p>© {new Date().getFullYear()} MAD Platform. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} Mad Made Photography. All rights reserved.</p>
             </div>
           </footer>
         </div>
