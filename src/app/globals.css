@@ -118,6 +118,37 @@ a {
   gap: 2rem;
 }
 
+.home-section {
+  display: grid;
+  gap: 1rem;
+}
+
+.section-panel,
+.cta-panel {
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-header {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.15;
+}
+
+.section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .eyebrow {
   color: var(--color-primary);
   font-weight: 700;
@@ -190,11 +221,26 @@ h1 {
 
 .card {
   padding: 1.15rem;
+  display: grid;
+  gap: 0.75rem;
 }
 
 .card p {
   color: var(--color-muted);
-  margin-top: 0.45rem;
+}
+
+.card-eyebrow {
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.card-link {
+  font-weight: 600;
+  width: fit-content;
+  border-bottom: 1px solid currentColor;
 }
 
 .gallery-grid {
