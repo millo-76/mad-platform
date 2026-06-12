@@ -28,7 +28,7 @@ Mad Made Platform is a Next.js application with Sanity Studio integration and Su
 3. Set the required environment variables in .env.local:
 
 	NEXT_PUBLIC_SANITY_PROJECT_ID=
-	NEXT_PUBLIC_SANITY_DATASET=
+	NEXT_PUBLIC_SANITY_DATASET=staging
 	NEXT_PUBLIC_SANITY_API_VERSION=2026-06-12
 	NEXT_PUBLIC_SUPABASE_URL=
 	NEXT_PUBLIC_SUPABASE_ANON_KEY=
@@ -49,6 +49,55 @@ Mad Made Platform is a Next.js application with Sanity Studio integration and Su
 - Studio route: /studio
 - Studio config: sanity.config.ts
 - Schema files: src/sanity/schemaTypes/
+
+## Branch And Dataset Rules
+
+This repository follows a strict branch-to-environment model:
+
+| Environment | Vercel branch | Sanity dataset |
+| --- | --- | --- |
+| Production | `main` | `production` |
+| Preview/Staging | `dev` (Preview deployments) | `staging` |
+
+Use these Vercel environment variables:
+
+### Vercel Production (main)
+
+`NEXT_PUBLIC_SANITY_DATASET=production`
+
+### Vercel Preview (dev)
+
+`NEXT_PUBLIC_SANITY_DATASET=staging`
+
+Safety rule:
+
+- Preview is where edits are tested.
+- Production only updates after an intentional publish/release action.
+
+## Sanity Content Releases Workflow
+
+Use Sanity Content Releases as the default publishing flow:
+
+1. Edit content in Preview Studio (dataset: `staging`).
+2. Let the Preview Vercel deployment rebuild.
+3. Review and approve content changes.
+4. Run the Content Release to publish approved changes.
+5. Production site rebuilds from production content.
+
+This keeps production stable and ensures all content is validated first.
+
+See the operational checklist: `RELEASE_CHECKLIST.md`.
+
+## Production Rebuild Webhook
+
+Configure a Sanity webhook so production rebuilds when production content changes:
+
+1. In Sanity project settings, create a webhook scoped to dataset `production`.
+2. Set the webhook URL to your Vercel Deploy Hook URL for the production project.
+3. Trigger on create/update/delete as needed.
+4. Save and test the webhook.
+
+Result: production rebuilds automatically only when production dataset content is published.
 
 ## Database Files
 

@@ -129,13 +129,20 @@ The form fields themselves are built into the site code, so the Studio only cont
 
 ## Suggested editing workflow
 
-1. Edit the relevant document type in the Studio.
+1. Edit the relevant document type in Preview Studio (dataset: `staging`).
 2. Save the entry.
-3. Check the matching live page:
+3. Check the matching Preview deployment page:
    - Home content on `/`
    - Gallery content on `/gallery`
    - Contact content on `/contact`
 4. Use the preview/title in the Studio to confirm you edited the right document.
+5. After approval, publish via Sanity Content Release so the change moves to production.
+
+## Environment guardrails
+
+- `main` branch maps to Vercel Production and Sanity dataset `production`.
+- `dev` branch maps to Vercel Preview and Sanity dataset `staging`.
+- All content edits must be validated in Preview before intentional release to Production.
 
 ## Quick reference
 

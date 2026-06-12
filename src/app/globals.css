@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ogg:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&display=swap');
 
 :root {
   /* Typography tokens: replace with your selected font stack later. */
   --font-heading: "Allura", cursive;
-  --font-body: "Ogg", serif;
+  --font-body: "Cormorant Garamond", serif;
+  --font-button: "Allura", cursive;
 
   /* Color tokens: replace these placeholders once palette is finalized. */
   --color-bg: #F7F2EC;
   --color-surface: #ffffff;
-  --color-text: #352621;
+  --color-heading-text: #352621;
+  --color-body-text: #000000;
   --color-muted: #676767;
   --color-border: #d8d8d8;
   --color-primary: #352621;
@@ -33,7 +35,7 @@ body {
 
 body {
   font-family: var(--font-body);
-  color: var(--color-text);
+  color: var(--color-body-text);
   background: radial-gradient(circle at top left, #ffffff 0%, var(--color-bg) 50%);
   line-height: 1.6;
 }
@@ -43,6 +45,12 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-heading-text);
 }
 
 a {
@@ -79,6 +87,7 @@ a {
 
 .brand {
   font-family: var(--font-heading);
+  color: var(--color-heading-text);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -139,6 +148,7 @@ a {
 
 .section-title {
   font-family: var(--font-heading);
+  color: var(--color-heading-text);
   font-size: clamp(1.4rem, 3vw, 2.2rem);
   line-height: 1.15;
 }
@@ -150,7 +160,7 @@ a {
 }
 
 .eyebrow {
-  color: var(--color-primary);
+  color: var(--color-heading-text);
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.75rem;
@@ -159,6 +169,7 @@ a {
 
 h1 {
   font-family: var(--font-heading);
+  color: var(--color-heading-text);
   font-size: clamp(1.9rem, 4vw, 3rem);
   line-height: 1.2;
   margin-top: 0.4rem;
@@ -168,7 +179,7 @@ h1 {
 .section-copy {
   margin-top: 0.85rem;
   max-width: 65ch;
-  color: var(--color-muted);
+  color: var(--color-body-text);
 }
 
 .hero-actions {
@@ -187,12 +198,14 @@ h1 {
   padding: 0.65rem 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  font: inherit;
+  font-family: var(--font-button);
+  color: var(--color-heading-text);
 }
 
 .btn-primary {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
+  background: color-mix(in srgb, var(--color-surface) 82%, var(--color-heading-text));
+  border-color: var(--color-heading-text);
+  color: var(--color-heading-text);
 }
 
 .btn-primary:hover {
@@ -201,6 +214,7 @@ h1 {
 
 .btn-secondary {
   background: transparent;
+  color: var(--color-heading-text);
   border-color: var(--color-border);
 }
 
@@ -226,11 +240,11 @@ h1 {
 }
 
 .card p {
-  color: var(--color-muted);
+  color: var(--color-body-text);
 }
 
 .card-eyebrow {
-  color: var(--color-primary);
+  color: var(--color-heading-text);
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -269,18 +283,19 @@ h1 {
   border: 1px solid var(--color-border);
   border-radius: 999px;
   padding: 0.18rem 0.58rem;
-  color: var(--color-muted);
+  color: var(--color-body-text);
 }
 
 .gallery-meta h2 {
   margin-top: 0.6rem;
   font-family: var(--font-heading);
+  color: var(--color-heading-text);
   font-size: 1.1rem;
 }
 
 .gallery-meta p:last-child {
   margin-top: 0.45rem;
-  color: var(--color-muted);
+  color: var(--color-body-text);
 }
 
 .contact-section {
