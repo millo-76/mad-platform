@@ -8,6 +8,6 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  // Preview/staging should show freshest edits quickly, production can use CDN caching.
-  useCdn: !isPreviewDataset,
+  // Fetch directly from Sanity so published edits appear as quickly as possible.
+  useCdn: false,
 })

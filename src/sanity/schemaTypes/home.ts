@@ -11,6 +11,7 @@ export const home = defineType({
         eyebrow: 'Welcome to the studio',
         title: 'Build a homepage without touching code.',
         copy: 'Add, remove, and rearrange sections from the Studio. Each block can be tailored to your brand, projects, and calls to action.',
+        contentAlignment: 'left',
         primaryActionLabel: 'View Gallery',
         primaryActionHref: '/gallery',
         secondaryActionLabel: 'Contact',
@@ -78,10 +79,40 @@ export const home = defineType({
               description: 'The largest text in this section.',
             }),
             defineField({
+              name: 'contentAlignment',
+              title: 'Hero text alignment',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Left', value: 'left'},
+                  {title: 'Center', value: 'center'},
+                  {title: 'Right', value: 'right'},
+                ],
+                layout: 'radio',
+              },
+              description: 'Choose where the hero text and buttons sit in the section layout.',
+              initialValue: 'left',
+            }),
+            defineField({
               name: 'copy',
               title: 'Supporting text',
               type: 'text',
               description: 'A short paragraph that explains the section.',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Hero image (optional)',
+              type: 'image',
+              description: 'Add a lead image beside the hero text if you want a more visual opening.',
+              options: {
+                hotspot: true,
+              },
+            }),
+            defineField({
+              name: 'imageAlt',
+              title: 'Alt text for hero image',
+              type: 'string',
+              description: 'Required for accessibility. Describe what is in the image, not the layout.',
             }),
             defineField({
               name: 'primaryActionLabel',
@@ -108,11 +139,13 @@ export const home = defineType({
             select: {
               title: 'title',
               subtitle: 'eyebrow',
+              media: 'image',
             },
-            prepare({title, subtitle}) {
+            prepare({title, subtitle, media}) {
               return {
                 title: title || 'Hero banner',
                 subtitle: subtitle ? `Eyebrow: ${subtitle}` : 'Top-of-page intro block',
+                media,
               }
             },
           },

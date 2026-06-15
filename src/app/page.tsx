@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getHomeContent } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
+import type { CSSProperties } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +12,7 @@ const defaultSections = [
 		title: "Build your presence with a clean, adaptable base.",
 		copy:
 			"This starter includes a focused homepage, gallery route, and contact workflow. Content and visual direction can evolve without refactoring core structure.",
+		contentAlignment: "left",
 		primaryActionLabel: "View Gallery",
 		primaryActionHref: "/gallery",
 		secondaryActionLabel: "Contact",
@@ -49,19 +52,47 @@ const defaultSections = [
 
 function renderSection(section: any) {
 	if (section._type === "heroSection") {
+		const alignment = section.contentAlignment || "left";
+		const imageUrl = section.image ? urlFor(section.image).width(1600).height(1200).fit("crop").quality(90).url() : null;
+		const imageAlt = section.imageAlt || section.title || "Homepage hero image";
+		const hasImage = Boolean(imageUrl);
+		const isCentered = alignment === "center";
+		const hasSideMedia = hasImage && !isCentered;
+		const showImageLeft = alignment === "right";
+		const heroImageUrl = imageUrl || "";
+		const sectionStyle = isCentered && imageUrl
+			? ({ "--hero-bg-image": `url(${imageUrl})` } as CSSProperties)
+			: undefined;
+
 		return (
-			<section className="hero section-panel" key={section._key || section.title}>
-				<p className="eyebrow">{section.eyebrow}</p>
-				<h1>{section.title}</h1>
-				<p className="hero-copy">{section.copy}</p>
-				<div className="hero-actions">
+			<section
+				className={`hero section-panel hero-align-${alignment} ${hasSideMedia ? "hero-has-side-media" : ""} ${isCentered && hasImage ? "hero-media-background" : ""}`}
+				style={sectionStyle}
+				key={section._key || section.title}
+			>
+				{hasSideMedia && showImageLeft ? (
+					<figure className="hero-media">
+						<img src={heroImageUrl} alt={imageAlt} className="hero-image" />
+					</figure>
+				) : null}
+				<div className="hero-content">
+					{section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
+					<h1>{section.title}</h1>
+					<p className="hero-copy">{section.copy}</p>
+					<div className="hero-actions">
 					<Link className="btn btn-primary" href={section.primaryActionHref || "/gallery"}>
 						{section.primaryActionLabel || "View Gallery"}
 					</Link>
 					<Link className="btn btn-secondary" href={section.secondaryActionHref || "/contact"}>
 						{section.secondaryActionLabel || "Contact"}
 					</Link>
+					</div>
 				</div>
+				{hasSideMedia && !showImageLeft ? (
+					<figure className="hero-media">
+						<img src={heroImageUrl} alt={imageAlt} className="hero-image" />
+					</figure>
+				) : null}
 			</section>
 		);
 	}

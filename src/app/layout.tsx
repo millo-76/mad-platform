@@ -4,12 +4,13 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Mad Made Photography",
-  description: "Home, gallery, and contact framework for a portfolio site.",
+  description: "Home, gallery, about, and contact framework for a portfolio site.",
 };
 
 const navigation = [
   { href: "/", label: "Home" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
