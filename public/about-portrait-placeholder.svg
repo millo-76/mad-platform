@@ -1,0 +1,10 @@
+<svg width="1200" height="1500" viewBox="0 0 1200 1500" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Portrait placeholder illustration</title>
+  <desc id="desc">Warm-toned abstract portrait placeholder with off-white and brown shapes.</desc>
+  <rect width="1200" height="1500" rx="72" fill="#F7F2EC"/>
+  <circle cx="600" cy="520" r="210" fill="#7B5A45" opacity="0.18"/>
+  <path d="M600 382C704 382 788 466 788 570C788 674 704 758 600 758C496 758 412 674 412 570C412 466 496 382 600 382Z" fill="#7B5A45" opacity="0.7"/>
+  <path d="M360 1100C420 900 510 790 600 790C690 790 780 900 840 1100" stroke="#7B5A45" stroke-width="80" stroke-linecap="round"/>
+  <path d="M250 1260C370 1160 490 1110 600 1110C710 1110 830 1160 950 1260" stroke="#352621" stroke-width="34" stroke-linecap="round" opacity="0.25"/>
+  <rect x="96" y="96" width="1008" height="1308" rx="56" stroke="#352621" stroke-opacity="0.14" stroke-width="18"/>
+</svg>

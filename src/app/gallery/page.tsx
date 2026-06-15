@@ -1,6 +1,7 @@
-import Image from 'next/image';
 import { getGalleryItems } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
+import { GalleryGridClient } from '@/components/gallery/gallery-grid-client';
+
+export const dynamic = 'force-dynamic';
 
 const defaultGalleryItems = [
   {
@@ -66,35 +67,7 @@ export default async function GalleryPage() {
         </p>
       </section>
 
-      <section className="gallery-grid" aria-label="Gallery items">
-        {items.map((item: any) => (
-          <article className="gallery-card" key={item._id}>
-            {item.image ? (
-              <div style={{ position: 'relative', width: '100%', paddingBottom: '100%', overflow: 'hidden', borderRadius: '8px' }}>
-                <img
-                  src={urlFor(item.image).url()}
-                  alt={item.title}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-            ) : (
-              <div className="placeholder-media" aria-hidden="true" />
-            )}
-            <div className="gallery-meta">
-              <p className="chip">{item.category}</p>
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-            </div>
-          </article>
-        ))}
-      </section>
+      <GalleryGridClient items={items} />
     </main>
   );
 }

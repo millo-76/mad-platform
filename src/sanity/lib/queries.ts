@@ -12,6 +12,12 @@ export async function getGalleryItems() {
   return client.fetch(query)
 }
 
+// Fetch about page content
+export async function getAboutContent() {
+  const query = `*[_type == "about"][0]`
+  return client.fetch(query)
+}
+
 // Fetch contact page content
 export async function getContactContent() {
   const query = `*[_type == "contact"][0]`

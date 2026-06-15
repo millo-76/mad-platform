@@ -47,6 +47,9 @@ Section placement on the page:
 | `eyebrow` | Small label above the headline | `Welcome to the studio` |
 | `title` | Main hero heading | `Build a homepage without touching code.` |
 | `copy` | Supporting paragraph | `Add, remove, and rearrange sections from the Studio. Each block can be tailored to your brand, projects, and calls to action.` |
+| `contentAlignment` | Aligns the hero text and buttons left, center, or right | `left` |
+| `image` | Optional hero image beside the text | A portrait or branded detail shot |
+| `imageAlt` | Accessible alt text for the hero image | `Portrait of the photographer in warm studio light` |
 | `primaryActionLabel` | Main button text | `View Gallery` |
 | `primaryActionHref` | Main button link | `/gallery` |
 | `secondaryActionLabel` | Secondary button text | `Contact` |
@@ -103,16 +106,17 @@ The homepage code also supports reordering sections, so you can change the narra
 
 Each `Portfolio Card` document controls one tile on `/gallery`.
 
-The gallery page renders all `galleryItem` entries and sorts them newest-first.
+The gallery page renders all `galleryItem` entries and sorts them newest-first. Clicking a card opens a popup viewer with the card image and any extra images you add in the Studio.
 
 | Field | What it controls | Example content |
 | --- | --- | --- |
 | `title` | Card title shown in the gallery grid | `Editorial Series` |
 | `category` | Short label or chip above the title | `Photography` |
 | `description` | Supporting text under the title | `A structured visual narrative intended for print and digital covers.` |
-| `image` | Card image shown in the grid | A portrait, project cover, or final selected asset |
+| `image` | Primary cover image shown in the grid and popup | A portrait, project cover, or final selected asset |
+| `images` | Extra images that appear in the scrolling popup viewer | Three to six supporting images |
 
-If a card has no image, the page shows a placeholder instead, but the document still appears in the gallery list.
+If a card has no image, the page shows a placeholder instead, but the document still appears in the gallery list. Add alt text for every popup image so the viewer stays accessible.
 
 ### Contact Page
 

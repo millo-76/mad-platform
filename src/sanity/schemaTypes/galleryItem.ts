@@ -19,26 +19,77 @@ export const galleryItem = defineType({
     }),
     defineField({
       name: 'category',
-      title: 'Label',
+      title: 'Gallery label',
       type: 'string',
-      description: 'A short tag or category for the card.',
+      description: 'A short tag or category shown above the card title.',
       validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Supporting text',
       type: 'text',
-      description: 'A short paragraph that describes the piece.',
+      description: 'A short paragraph that describes the project or image set.',
     }),
     defineField({
       name: 'image',
-      title: 'Card image',
+      title: 'Primary card image',
       type: 'image',
-      description: 'Choose the image that represents this card.',
+      description: 'This is the cover image used on the gallery grid and in the popup viewer.',
       options: {
         hotspot: true,
       },
       validation: Rule => Rule.required(),
+    }),
+    defineField({
+      name: 'images',
+      title: 'Popup image set',
+      type: 'array',
+      description: 'Add extra images that appear in the scrolling popup viewer when someone clicks the card.',
+      of: [
+        defineField({
+          name: 'galleryImageItem',
+          title: 'Gallery image',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'image',
+              title: 'Popup image',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              validation: Rule => Rule.required(),
+            }),
+            defineField({
+              name: 'alt',
+              title: 'Alt text',
+              type: 'string',
+              description: 'Required for accessibility. Describe the photo clearly and specifically.',
+              validation: Rule => Rule.required(),
+            }),
+            defineField({
+              name: 'caption',
+              title: 'Caption (optional)',
+              type: 'string',
+              description: 'Optional note that appears below the image in the popup.',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'caption',
+              subtitle: 'alt',
+              media: 'image',
+            },
+            prepare({title, subtitle, media}) {
+              return {
+                title: title || 'Gallery image',
+                subtitle: subtitle || 'Alt text not set',
+                media,
+              }
+            },
+          },
+        }),
+      ],
     }),
   ],
   preview: {
@@ -46,12 +97,13 @@ export const galleryItem = defineType({
       title: 'title',
       subtitle: 'category',
       media: 'image',
+      fallbackMedia: 'images.0.image',
     },
-    prepare({title, subtitle, media}) {
+    prepare({title, subtitle, media, fallbackMedia}) {
       return {
         title: title || 'Portfolio card',
-        subtitle: subtitle || 'Uncategorized',
-        media,
+        subtitle: subtitle || 'Gallery card',
+        media: media || fallbackMedia,
       }
     },
   },
