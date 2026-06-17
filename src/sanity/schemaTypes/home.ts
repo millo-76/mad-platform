@@ -103,7 +103,7 @@ export const home = defineType({
               name: 'image',
               title: 'Hero image (optional)',
               type: 'image',
-              description: 'Add a lead image beside the hero text if you want a more visual opening.',
+              description: 'Add a lead image beside the hero text if you want a more visual opening. (ADA: Add alt text below)',
               options: {
                 hotspot: true,
               },
@@ -112,7 +112,7 @@ export const home = defineType({
               name: 'imageAlt',
               title: 'Alt text for hero image',
               type: 'string',
-              description: 'Required for accessibility. Describe what is in the image, not the layout.',
+              description: 'Required for accessibility. Describe what is in the image, not the layout. (ADA not visible)',
             }),
             defineField({
               name: 'primaryActionLabel',
