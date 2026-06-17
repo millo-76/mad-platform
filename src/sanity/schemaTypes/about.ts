@@ -53,7 +53,7 @@ export const about = defineType({
       name: 'imageAlt',
       title: 'Portrait alt text',
       type: 'string',
-      description: 'Required for accessibility when a portrait image is present.',
+      description: 'Required for accessibility when a portrait image is present. (ADA not visible)',
       validation: (Rule) => Rule.custom((value, context) => {
         if (context.document?.image && !value) {
           return 'Add alt text when portrait image is set.'

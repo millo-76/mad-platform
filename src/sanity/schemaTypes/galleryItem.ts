@@ -34,7 +34,7 @@ export const galleryItem = defineType({
       name: 'image',
       title: 'Primary card image',
       type: 'image',
-      description: 'This is the cover image used on the gallery grid and in the popup viewer.',
+      description: 'This is the cover image used on the gallery grid and in the popup viewer. (ADA not visible: Add alt text below)',
       options: {
         hotspot: true,
       },
@@ -55,6 +55,7 @@ export const galleryItem = defineType({
               name: 'image',
               title: 'Popup image',
               type: 'image',
+              description: '(ADA: Add alt text below)',
               options: {
                 hotspot: true,
               },
@@ -64,7 +65,7 @@ export const galleryItem = defineType({
               name: 'alt',
               title: 'Alt text',
               type: 'string',
-              description: 'Required for accessibility. Describe the photo clearly and specifically.',
+              description: 'Required for accessibility. Describe the photo clearly and specifically. (ADA not visible)',
               validation: Rule => Rule.required(),
             }),
             defineField({
