@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "./globals.css";
+import { SiteHeader } from "@/components/layout/site-header";
 
 export const metadata: Metadata = {
   title: "Mad Made Photography",
@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 };
 
 const navigation = [
-  { href: "/", label: "Home" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
@@ -24,22 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="site-wrapper">
-          <header className="site-header">
-            <div className="container nav-row">
-              <Link href="/" className="brand" aria-label="Mad Made Photography home">
-                Mad Made Photography
-              </Link>
-              <nav aria-label="Main navigation">
-                <ul className="nav-list">
-                  {navigation.map((item) => (
-                    <li key={item.href}>
-                      <Link href={item.href}>{item.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-          </header>
+          <SiteHeader navigation={navigation} />
 
           <div className="container content">{children}</div>
 
