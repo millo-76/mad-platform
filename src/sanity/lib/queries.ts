@@ -24,6 +24,12 @@ export async function getContactContent() {
   return client.fetch(query)
 }
 
+// Fetch FAQ page content
+export async function getFaqContent() {
+  const query = `*[_type == "faq"][0]`
+  return client.fetch(query)
+}
+
 // Fetch a single gallery item
 export async function getGalleryItemById(id: string) {
   const query = `*[_type == "galleryItem" && _id == $id][0]`
