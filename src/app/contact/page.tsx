@@ -38,20 +38,34 @@ export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchContent() {
       try {
-        const fetchedContent = await getContactContent();
-        if (fetchedContent) {
+        const fetchedContent = (await Promise.race([
+          getContactContent(),
+          new Promise<null>((resolve) => {
+            setTimeout(() => resolve(null), 5000);
+          }),
+        ])) as ContactContent | null;
+
+        if (isMounted && fetchedContent) {
           setContent(fetchedContent);
         }
       } catch (error) {
         console.error("Failed to fetch contact content:", error);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
 
     fetchContent();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
