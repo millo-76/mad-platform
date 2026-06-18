@@ -1,3 +1,5 @@
+import { getFaqContent } from "@/sanity/lib/queries";
+
 export const dynamic = "force-dynamic";
 
 const defaultFaqItems = [
@@ -23,14 +25,27 @@ const defaultFaqItems = [
   },
 ];
 
+const defaultHeading = "Frequently Asked Questions";
+
 export default async function FaqPage() {
+  let faqContent = null;
+
+  try {
+    faqContent = await getFaqContent();
+  } catch (error) {
+    console.error("Failed to fetch FAQ content:", error);
+  }
+
+  const heading = faqContent?.heading || defaultHeading;
+  const faqItems = faqContent?.faqItems?.length ? faqContent.faqItems : defaultFaqItems;
+
   return (
     <main className="page-shell faq-page">
       <section className="faq-section section-panel">
-        <h1 className="faq-heading">Frequently Asked Questions</h1>
+        <h1 className="faq-heading">{heading}</h1>
         <div className="faq-container">
-          {defaultFaqItems.map((item, index) => (
-            <details key={index} className="faq-item">
+          {faqItems.map((item: { _key?: string; question: string; answer: string }) => (
+            <details key={item._key || item.question} className="faq-item">
               <summary className="faq-question">{item.question}</summary>
               <p className="faq-answer">{item.answer}</p>
             </details>
