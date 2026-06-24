@@ -38,7 +38,20 @@ export const siteSettings = defineType({
               title: 'Link path',
               type: 'string',
               description: 'Use internal paths such as /about or /contact.',
-              validation: Rule => Rule.required(),
+              validation: (Rule) =>
+                Rule.required().custom((value) => {
+                  if (typeof value !== 'string') {
+                    return 'Navigation link must be a path.'
+                  }
+
+                  const href = value.trim()
+
+                  if (!href.startsWith('/') || href.startsWith('//')) {
+                    return 'Use an internal path starting with / (for example, /about).'
+                  }
+
+                  return true
+                }),
             }),
           ],
           preview: {
