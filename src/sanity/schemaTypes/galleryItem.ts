@@ -3,108 +3,44 @@ import {ImageIcon} from '@sanity/icons'
 
 export const galleryItem = defineType({
   name: 'galleryItem',
-  title: 'Portfolio Card',
+  title: 'Gallery Photo',
   type: 'document',
   icon: ImageIcon,
   initialValue: {
-    category: 'Featured work',
+    isArchived: false,
   },
   fields: [
     defineField({
-      name: 'title',
-      title: 'Card title',
-      type: 'string',
-      description: 'The main name shown for this gallery entry.',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'category',
-      title: 'Gallery label',
-      type: 'string',
-      description: 'A short tag or category shown above the card title.',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'description',
-      title: 'Supporting text',
-      type: 'text',
-      description: 'A short paragraph that describes the project or image set.',
-    }),
-    defineField({
       name: 'image',
-      title: 'Primary card image',
+      title: 'Photo upload',
       type: 'image',
-      description: 'This is the cover image used on the gallery grid and in the popup viewer. (ADA not visible: Add alt text below)',
+      description: 'Upload the image to show in the gallery grid.',
       options: {
         hotspot: true,
       },
       validation: Rule => Rule.required(),
     }),
     defineField({
-      name: 'images',
-      title: 'Popup image set',
-      type: 'array',
-      description: 'Add extra images that appear in the scrolling popup viewer when someone clicks the card.',
-      of: [
-        defineField({
-          name: 'galleryImageItem',
-          title: 'Gallery image',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'image',
-              title: 'Popup image',
-              type: 'image',
-              description: '(ADA: Add alt text below)',
-              options: {
-                hotspot: true,
-              },
-              validation: Rule => Rule.required(),
-            }),
-            defineField({
-              name: 'alt',
-              title: 'Alt text',
-              type: 'string',
-              description: 'Required for accessibility. Describe the photo clearly and specifically. (ADA not visible)',
-              validation: Rule => Rule.required(),
-            }),
-            defineField({
-              name: 'caption',
-              title: 'Caption (optional)',
-              type: 'string',
-              description: 'Optional note that appears below the image in the popup.',
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'caption',
-              subtitle: 'alt',
-              media: 'image',
-            },
-            prepare({title, subtitle, media}) {
-              return {
-                title: title || 'Gallery image',
-                subtitle: subtitle || 'Alt text not set',
-                media,
-              }
-            },
-          },
-        }),
-      ],
+      name: 'isArchived',
+      title: 'Archive this photo',
+      type: 'boolean',
+      description: 'Archived photos stay in Studio for later reuse but are hidden from the public gallery.',
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'category',
+      title: 'image.asset.originalFilename',
+      createdAt: '_createdAt',
       media: 'image',
-      fallbackMedia: 'images.0.image',
+      isArchived: 'isArchived',
     },
-    prepare({title, subtitle, media, fallbackMedia}) {
+    prepare({title, createdAt, media, isArchived}) {
+      const dateLabel = createdAt ? new Date(createdAt).toLocaleDateString() : 'New upload'
+
       return {
-        title: title || 'Portfolio card',
-        subtitle: subtitle || 'Gallery card',
-        media: media || fallbackMedia,
+        title: title || 'Uploaded photo',
+        subtitle: `${dateLabel}${isArchived ? ' • Archived' : ''}`,
+        media,
       }
     },
   },

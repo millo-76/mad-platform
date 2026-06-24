@@ -1,52 +1,66 @@
-import { getGalleryItems } from '@/sanity/lib/queries';
-import { GalleryGridClient } from '@/components/gallery/gallery-grid-client';
+import { getGalleryItems, getGalleryPageContent } from '@/sanity/lib/queries';
+import GalleryGridClient from '@/components/gallery/gallery-grid-client';
 
 export const dynamic = 'force-dynamic';
+
+const defaultGalleryPageContent = {
+  eyebrow: 'Gallery',
+  heading: 'A growing collection of recent work',
+  sectionCopy: 'Add new photos to the end of the grid and archive older work whenever you want to rotate what is live.',
+};
 
 const defaultGalleryItems = [
   {
     _id: 1,
-    title: "Editorial Series",
-    category: "Photography",
-    description: "A structured visual narrative intended for print and digital covers.",
+    image: null,
+    imageAlt: "Gallery placeholder",
   },
   {
     _id: 2,
-    title: "Brand Campaign",
-    category: "Creative Direction",
-    description: "Launch assets designed around a modular campaign identity.",
+    image: null,
+    imageAlt: "Gallery placeholder",
   },
   {
     _id: 3,
-    title: "Product Showcase",
-    category: "Commercial",
-    description: "High-detail compositions featuring texture, form, and color balance.",
+    image: null,
+    imageAlt: "Gallery placeholder",
   },
   {
     _id: 4,
-    title: "Portrait Collection",
-    category: "Portraits",
-    description: "Character-led work focused on mood, contrast, and environment.",
+    image: null,
+    imageAlt: "Gallery placeholder",
   },
   {
     _id: 5,
-    title: "Studio Archive",
-    category: "Behind The Scenes",
-    description: "Reference moments documenting process and production context.",
+    image: null,
+    imageAlt: "Gallery placeholder",
   },
   {
     _id: 6,
-    title: "Motion Frames",
-    category: "Film",
-    description: "Cinematic stills extracted from short-form motion pieces.",
+    image: null,
+    imageAlt: "Gallery placeholder",
   },
 ];
 
 export default async function GalleryPage() {
+  let pageContent = defaultGalleryPageContent;
   let galleryItems = [];
 
   try {
-    galleryItems = await getGalleryItems();
+    const [fetchedPageContent, fetchedItems] = await Promise.all([
+      getGalleryPageContent(),
+      getGalleryItems(),
+    ]);
+
+    if (fetchedPageContent) {
+      pageContent = {
+        eyebrow: fetchedPageContent.eyebrow || defaultGalleryPageContent.eyebrow,
+        heading: fetchedPageContent.heading || defaultGalleryPageContent.heading,
+        sectionCopy: fetchedPageContent.sectionCopy || defaultGalleryPageContent.sectionCopy,
+      };
+    }
+
+    galleryItems = fetchedItems;
   } catch (error) {
     console.error("Failed to fetch gallery items:", error);
     galleryItems = defaultGalleryItems;
@@ -57,13 +71,13 @@ export default async function GalleryPage() {
 
   return (
     <main className="page-shell">
-      <section>
-        <p className="eyebrow">Gallery</p>
-        <h1>Featured work collection</h1>
+      <section className="gallery-intro">
+        <p className="eyebrow">{pageContent.eyebrow}</p>
+        <h1>{pageContent.heading}</h1>
         <p className="section-copy">
           {items.length === defaultGalleryItems.length
-            ? "Replace these placeholders with project thumbnails, media, or dynamic content from your CMS when ready."
-            : "A curated collection of recent work."}
+            ? "Upload photos in Studio and they will automatically append to the end of this grid. Toggle archive on any photo to hide it without deleting it."
+            : pageContent.sectionCopy}
         </p>
       </section>
 
