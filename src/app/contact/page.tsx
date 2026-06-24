@@ -91,12 +91,12 @@ export default function ContactPage() {
   };
 
   if (isLoading) {
-    return <main className="page-shell">Loading...</main>;
+    return <main className="page-shell contact-page">Loading...</main>;
   }
 
   return (
-    <main className="page-shell">
-      <section>
+    <main className="page-shell contact-page">
+      <section className="contact-intro">
         <p className="eyebrow">{content.eyebrow || defaultContent.eyebrow}</p>
         <h1>{content.heading || defaultContent.heading}</h1>
         <p className="section-copy">
@@ -104,7 +104,7 @@ export default function ContactPage() {
         </p>
       </section>
 
-      <section className="form-container">
+      <section className="form-container contact-form-shell">
         {submitted ? (
           <div className="submitted-state">
             <p className="success-message">
