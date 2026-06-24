@@ -43,7 +43,17 @@ const supportedSocialIcons: Record<string, { label: string; path: string }> = {
 };
 
 function sanitizeNavigation(items?: SiteNavigationItem[]) {
-  return items?.filter((item) => item?.label && item?.href) ?? [];
+  return (
+    items?.filter((item) => {
+      const label = item?.label?.trim()
+      const href = item?.href?.trim()
+
+      if (!label || !href) return false
+      if (!href.startsWith('/') || href.startsWith('//')) return false
+
+      return true
+    }) ?? []
+  )
 }
 
 function sanitizeSocialLinks(items?: SiteSocialLink[]) {
