@@ -103,7 +103,7 @@ export default async function RootLayout({
                         key={`${link.platform}-${link.url}`}
                         href={link.url}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         aria-label={icon.label}
                         className="social-link"
                       >
