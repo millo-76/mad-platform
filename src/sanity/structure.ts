@@ -9,12 +9,12 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('about').title('About page'),
       S.documentTypeListItem('galleryPage').title('Gallery page'),
       S.documentTypeListItem('contact').title('Contact page'),
-      S.documentTypeListItem('siteSettings').title('Site settings'),
+      S.documentTypeListItem('faq').title('FAQ page'),
       S.divider(),
       S.documentTypeListItem('galleryItem').title('Gallery photos'),
       S.divider(),
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['home', 'about', 'galleryPage', 'contact', 'siteSettings', 'galleryItem'].includes(item.getId()!),
+        (item) => item.getId() && !['home', 'about', 'contact', 'faq', 'galleryItem'].includes(item.getId()!),
       ),
     ])
 
