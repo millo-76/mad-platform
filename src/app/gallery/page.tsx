@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 const defaultGalleryPageContent = {
   eyebrow: 'Gallery',
   heading: 'A growing collection of recent work',
-  sectionCopy: 'Add new photos to the end of the grid and archive older work whenever you want to rotate what is live.',
+  sectionCopy: 'Drag photos to reorder them in Studio, set each photo size, and archive older work whenever you want to rotate what is live.',
 };
 
 const defaultGalleryItems = [
@@ -72,11 +72,10 @@ export default async function GalleryPage() {
   return (
     <main className="page-shell">
       <section className="gallery-intro">
-        <p className="eyebrow">{pageContent.eyebrow}</p>
         <h1>{pageContent.heading}</h1>
         <p className="section-copy">
           {items.length === defaultGalleryItems.length
-            ? "Upload photos in Studio and they will automatically append to the end of this grid. Toggle archive on any photo to hide it without deleting it."
+            ? "Upload photos in Studio, drag to reorder them, set their size, and toggle archive on any photo to hide it without deleting it."
             : pageContent.sectionCopy}
         </p>
       </section>

@@ -41,7 +41,7 @@ export async function getGalleryPageContent(): Promise<GalleryPageContent | null
 
 // Fetch all gallery items
 export async function getGalleryItems() {
-  const query = `*[_type == "galleryItem" && !coalesce(isArchived, false)] | order(_createdAt asc)`
+  const query = `*[_type == "galleryItem" && !coalesce(isArchived, false)] | order(orderRank asc)`
   return client.fetch(query)
 }
 
