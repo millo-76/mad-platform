@@ -1,7 +1,8 @@
 import type {StructureResolver} from 'sanity/structure'
+import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure: StructureResolver = (S) =>
+export const structure: StructureResolver = (S, context) =>
   S.list()
     .title('Site content')
     .items([
@@ -12,7 +13,7 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('siteSettings').title('Site settings'),
       S.documentTypeListItem('faq').title('FAQ page'),
       S.divider(),
-      S.documentTypeListItem('galleryItem').title('Gallery photos'),
+      orderableDocumentListDeskItem({type: 'galleryItem', title: 'Gallery photos', S, context}),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (item) =>
