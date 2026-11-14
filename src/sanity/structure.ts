@@ -1,3 +1,4 @@
+import {GalleryStudio} from './components/gallery-studio'
 import type {StructureResolver} from 'sanity/structure'
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
@@ -13,7 +14,8 @@ export const structure: StructureResolver = (S, context) =>
       S.documentTypeListItem('siteSettings').title('Site settings'),
       S.documentTypeListItem('faq').title('FAQ page'),
       S.divider(),
-      orderableDocumentListDeskItem({type: 'galleryItem', title: 'Gallery photos', S, context}),
+      S.listItem().id('gallery-visual').title('Gallery photos').child(S.component().id('gallery-visual').title('Gallery photos').component(GalleryStudio)),
+      orderableDocumentListDeskItem({type: 'galleryItem', title: 'Gallery photo order', S, context}),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (item) =>

@@ -102,21 +102,26 @@ Section placement on the page:
 
 The homepage code also supports reordering sections, so you can change the narrative flow without changing code.
 
-### Portfolio Card
+### Gallery photos and layouts
 
-Each `Portfolio Card` document controls one tile on `/gallery`.
+Open **Gallery photos** for a visual grid. Choose **Add photo** to upload, or **Edit photo** on a card to change its image, crop/hotspot, size, description, album, or archive setting. Publish photo edits to update the website.
 
-The gallery page renders all `galleryItem` entries and sorts them newest-first. Clicking a card opens a popup viewer with the card image and any extra images you add in the Studio.
+Choose **Preview gallery** to see active photos in their gallery layout, including draft changes. Try **Grid**, **Carousel**, and **Albums** without changing the live site. The preview uses the same gallery component as the website; its width depends on your Studio pane. Open **Gallery page**, set **Default gallery style**, and publish to choose the view visitors see first. Visitors can also switch styles themselves.
 
-| Field | What it controls | Example content |
-| --- | --- | --- |
-| `title` | Card title shown in the gallery grid | `Editorial Series` |
-| `category` | Short label or chip above the title | `Photography` |
-| `description` | Supporting text under the title | `A structured visual narrative intended for print and digital covers.` |
-| `image` | Primary cover image shown in the grid and popup | A portrait, project cover, or final selected asset |
-| `images` | Extra images that appear in the scrolling popup viewer | Three to six supporting images |
+Give photos the same **Album** name to group them in Albums view. Photos without an album appear under Uncategorized. Use **Gallery photo order** to drag photos into order across the gallery.
 
-If a card has no image, the page shows a placeholder instead, but the document still appears in the gallery list. Add alt text for every popup image so the viewer stays accessible.
+To hide a photo temporarily, enable **Archive this photo** and publish. In the visual grid, **Show archived photos** includes hidden entries so you can edit or restore them. To remove an entry permanently, choose **Delete photo**, then **Permanently delete photo** in the confirmation. This removes both the published entry and its draft immediately. The uploaded image asset remains in the media library so other content using it is unaffected. Your Sanity account must have delete permission.
+
+On the website or Studio preview, select any photo to enlarge it. Use Previous/Next or the left/right arrow keys to browse; Close, Escape, or clicking the backdrop closes the viewer. Carousel photos can also be swiped or scrolled horizontally.
+
+| Field | What it controls |
+| --- | --- |
+| Photo title | Optional name, shown in the enlarged viewer |
+| Image description | Accessible description for screen readers |
+| Album | Grouping in Albums view |
+| Photo upload | Image and crop/hotspot |
+| Gallery size | Photo proportions in the grid |
+| Archive this photo | Hides the photo while retaining its entry |
 
 ### Contact Page
 

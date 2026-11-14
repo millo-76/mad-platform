@@ -16,6 +16,7 @@ export type SiteSettings = {
 }
 
 export type GalleryPageContent = {
+  galleryStyle?: 'grid' | 'carousel' | 'albums'
   eyebrow?: string
   heading?: string
   sectionCopy?: string

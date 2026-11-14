@@ -8,8 +8,12 @@ export const galleryItem = defineType({
   type: 'document',
   icon: ImageIcon,
   orderings: [orderRankOrdering],
+  initialValue: {gridSize: 'medium', isArchived: false},
   fields: [
     orderRankField({type: 'galleryItem'}),
+    defineField({name: 'title', title: 'Photo title', type: 'string'}),
+    defineField({name: 'imageAlt', title: 'Image description', type: 'string', description: 'Describe the photo for visitors using screen readers.'}),
+    defineField({name: 'album', title: 'Album', type: 'string', description: 'Photos with the same album name appear together in Albums view. Leave blank for Uncategorized.'}),
     defineField({
       name: 'image',
       title: 'Photo upload',

@@ -808,3 +808,28 @@ h1 {
   color: var(--color-body-text);
   line-height: 1.7;
 }
+
+/* Shared public gallery and Studio preview. */
+.gallery-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin-bottom: 1rem; }
+.gallery-controls button { padding: .55rem .9rem; border: 1px solid currentColor; border-radius: .3rem; background: transparent; color: inherit; cursor: pointer; font: inherit; }
+.gallery-controls button[aria-pressed="true"] { background: #312c29; color: #fff; }
+.gallery-experience button:focus-visible, .studio-gallery a:focus-visible { outline: 3px solid #a16636; outline-offset: 3px; }
+.gallery-photo-button { display: block; width: 100%; height: 100%; padding: 0; border: 0; cursor: zoom-in; background: transparent; }
+.gallery-photo-button img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gallery-carousel { display: flex; overflow-x: auto; gap: 1rem; scroll-snap-type: x mandatory; }
+.gallery-carousel .gallery-card { flex: 0 0 85%; height: min(65vh, 650px); aspect-ratio: auto; scroll-snap-align: center; }
+.gallery-carousel .gallery-photo-button img { object-fit: contain; }
+.gallery-albums { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 1rem; }
+.gallery-album { padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+.gallery-album img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: .6rem; }
+.gallery-lightbox { width: 95vw; max-width: 1500px; max-height: 95dvh; border: 0; padding: 1rem; background: #181818; color: #fff; }
+.gallery-lightbox::backdrop { background: rgb(0 0 0 / 85%); }
+.gallery-lightbox-content > img { display: block; width: 100%; height: 72dvh; object-fit: contain; }
+.gallery-lightbox-content > p { text-align: center; margin: .6rem 0 0; }
+.studio-gallery { padding: 1.5rem; overflow: auto; height: 100%; box-sizing: border-box; }
+.studio-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.studio-gallery-card { border: 1px solid #8886; border-radius: .4rem; padding: .75rem; }
+.studio-gallery-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
+.studio-gallery-card a { color: inherit; text-decoration: underline; }
+.studio-gallery-card p { margin: .5rem 0; overflow-wrap: anywhere; }
+.studio-gallery button:disabled { opacity: .5; cursor: wait; }
