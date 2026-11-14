@@ -67,7 +67,7 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
   return (
     <section className="gallery-experience" aria-label="Photo gallery">
       <div className="gallery-controls" role="group" aria-label="Gallery style">
-        {(['grid', 'carousel', 'albums'] as const).map(option => <button key={option} aria-pressed={style === option} onClick={() => {setStyle(option); setAlbum(null)}}>{option[0].toUpperCase() + option.slice(1)}</button>)}
+        {(['grid', 'carousel', 'albums'] as const).map(option => <button key={option} className={`btn ${style === option ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={style === option} onClick={() => {setStyle(option); setAlbum(null)}}>{option[0].toUpperCase() + option.slice(1)}</button>)}
       </div>
       {!photos.length ? <p>No photos to display yet.</p> : style === 'albums' && !album ? (
         <div className="gallery-albums">{albums.map(name => {
@@ -78,16 +78,25 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
           </button>;
         })}</div>
       ) : <>
-        {style === 'albums' && <div className="gallery-controls"><button onClick={() => setAlbum(null)}>Back to albums</button><h2>{album}</h2></div>}
-        {style === 'carousel' && <div className="gallery-controls"><button aria-label="Previous photos" onClick={() => track.current?.scrollBy({left: -track.current.clientWidth, behavior: 'smooth'})}>Previous</button><button aria-label="Next photos" onClick={() => track.current?.scrollBy({left: track.current.clientWidth, behavior: 'smooth'})}>Next</button></div>}
-        <div ref={track} className={style === 'carousel' ? 'gallery-carousel' : 'gallery-grid'} tabIndex={style === 'carousel' ? 0 : undefined} aria-label={style === 'carousel' ? 'Scroll through photos' : undefined}>{cards}</div>
+        {style === 'albums' && <div className="gallery-controls"><button className="btn btn-secondary" onClick={() => setAlbum(null)}>Back to albums</button><h2>{album}</h2></div>}
+        <div className={style === 'carousel' ? 'gallery-carousel-stage' : undefined}>
+          <div ref={track} className={style === 'carousel' ? 'gallery-carousel' : 'gallery-grid'} tabIndex={style === 'carousel' ? 0 : undefined} aria-label={style === 'carousel' ? 'Scroll through photos' : undefined}>{cards}</div>
+          {style === 'carousel' && visible.length > 1 && ([-1, 1] as const).map(direction => (
+            <button key={direction} className={`btn btn-primary gallery-lightbox-arrow gallery-lightbox-arrow--${direction === -1 ? 'previous' : 'next'}`} aria-label={direction === -1 ? 'Previous photos' : 'Next photos'} onClick={() => {
+              const rail = track.current;
+              if (rail) rail.scrollBy({left: direction * rail.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+            }}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d={direction === -1 ? 'm15 5-7 7 7 7' : 'm9 5 7 7-7 7'} /></svg>
+            </button>
+          ))}
+        </div>
       </>}
       <dialog ref={dialog} className="gallery-lightbox" aria-label="Enlarged photo" onCancel={close} onClose={() => setActive(null)} onClick={event => {if (event.target === event.currentTarget) close()}} onKeyDown={event => {
         if (event.key === 'ArrowLeft') {event.preventDefault(); move(-1)}
         if (event.key === 'ArrowRight') {event.preventDefault(); move(1)}
       }}>
         <div className="gallery-lightbox-content">
-          <div className="gallery-lightbox-toolbar"><button className="gallery-lightbox-close" autoFocus onClick={close} aria-label="Close enlarged photo">×</button></div>
+          <div className="gallery-lightbox-toolbar"><button className="btn btn-primary gallery-lightbox-close" autoFocus onClick={close} aria-label="Close enlarged photo">×</button></div>
           <div className="gallery-lightbox-stage">
             <div ref={viewerTrack} className="gallery-lightbox-track" aria-label="Photos — swipe to browse" onScroll={event => {
               const rail = event.currentTarget;
@@ -102,10 +111,10 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
               </div>)}
             </div>
             {photos.length > 1 && <>
-              <button className="gallery-lightbox-arrow gallery-lightbox-arrow--previous" aria-label="Previous photo" disabled={active === 0} onClick={() => move(-1)}>
+              <button className="btn btn-primary gallery-lightbox-arrow gallery-lightbox-arrow--previous" aria-label="Previous photo" disabled={active === 0} onClick={() => move(-1)}>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
               </button>
-              <button className="gallery-lightbox-arrow gallery-lightbox-arrow--next" aria-label="Next photo" disabled={active === photos.length - 1} onClick={() => move(1)}>
+              <button className="btn btn-primary gallery-lightbox-arrow gallery-lightbox-arrow--next" aria-label="Next photo" disabled={active === photos.length - 1} onClick={() => move(1)}>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
               </button>
             </>}
