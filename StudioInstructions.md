@@ -112,7 +112,7 @@ Give photos the same **Album** name to group them in Albums view. Photos without
 
 To hide a photo temporarily, enable **Archive this photo** and publish. In the visual grid, **Show archived photos** includes hidden entries so you can edit or restore them. To remove an entry permanently, choose **Delete photo**, then **Permanently delete photo** in the confirmation. This removes both the published entry and its draft immediately. The uploaded image asset remains in the media library so other content using it is unaffected. Your Sanity account must have delete permission.
 
-On the website or Studio preview, select any photo to enlarge it. Use Previous/Next or the left/right arrow keys to browse; Close, Escape, or clicking the backdrop closes the viewer. Carousel photos can also be swiped or scrolled horizontally.
+On the website or Studio preview, select any photo to enlarge it. Use the arrows beside the enlarged photo, swipe horizontally, or use the left/right arrow keys to browse. Photos scroll smoothly, respecting reduced-motion preferences. The × button, Escape, or clicking the backdrop closes the viewer. Carousel photos can also be swiped or scrolled horizontally.
 
 | Field | What it controls |
 | --- | --- |

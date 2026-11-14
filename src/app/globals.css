@@ -824,7 +824,28 @@ h1 {
 .gallery-album img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: .6rem; }
 .gallery-lightbox { width: 95vw; max-width: 1500px; max-height: 95dvh; border: 0; padding: 1rem; background: #181818; color: #fff; }
 .gallery-lightbox::backdrop { background: rgb(0 0 0 / 85%); }
-.gallery-lightbox-content > img { display: block; width: 100%; height: 72dvh; object-fit: contain; }
+.gallery-lightbox-toolbar { display: flex; justify-content: flex-end; margin-bottom: .5rem; }
+.gallery-lightbox-close, .gallery-lightbox-arrow { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid rgb(255 255 255 / 25%); border-radius: 50%; background: rgb(24 24 24 / 80%); color: white; cursor: pointer; }
+.gallery-lightbox-close { font: 32px/1 sans-serif; }
+.gallery-lightbox-stage { position: relative; }
+.gallery-lightbox-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.gallery-lightbox-track::-webkit-scrollbar { display: none; }
+.gallery-lightbox-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.gallery-lightbox-slide img { display: block; width: 100%; height: 72dvh; object-fit: contain; padding-inline: 64px; box-sizing: border-box; }
+.gallery-lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); transition: background .2s, opacity .2s; }
+.gallery-lightbox-arrow--previous { left: 4px; }
+.gallery-lightbox-arrow--next { right: 4px; }
+.gallery-lightbox-arrow svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.gallery-lightbox-arrow:hover:not(:disabled), .gallery-lightbox-close:hover { background: #444; }
+.gallery-lightbox-arrow:disabled { opacity: .25; cursor: default; }
+@media (max-width: 600px) {
+  .gallery-lightbox { padding: .5rem; }
+  .gallery-lightbox-slide img { padding-inline: 0; height: 68dvh; }
+  .gallery-lightbox-arrow { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-lightbox-arrow { transition: none; }
+}
 .gallery-lightbox-content > p { text-align: center; margin: .6rem 0 0; }
 .studio-gallery { padding: 1.5rem; overflow: auto; height: 100%; box-sizing: border-box; }
 .studio-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }

@@ -21,6 +21,8 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
   const [active, setActive] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const track = useRef<HTMLDivElement>(null);
+  const viewerTrack = useRef<HTMLDivElement>(null);
+  const viewerIndex = useRef(0);
   const opener = useRef<HTMLElement | null>(null);
   const photos = items.filter(item => item.image);
   const albumName = (item: GalleryItem) => item.album?.trim() || 'Uncategorized';
@@ -33,18 +35,29 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
   useEffect(() => {
     if (!isOpen) return;
     dialog.current?.showModal();
+    const rail = viewerTrack.current;
+    const alignPhoto = () => rail?.scrollTo({left: viewerIndex.current * rail.clientWidth, behavior: 'instant'});
+    alignPhoto();
+    const resize = new ResizeObserver(alignPhoto);
+    if (rail) resize.observe(rail);
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return () => {document.body.style.overflow = previous; opener.current?.focus()};
+    return () => {resize.disconnect(); document.body.style.overflow = previous; opener.current?.focus()};
   }, [isOpen]);
 
   const close = () => {dialog.current?.close(); setActive(null)};
-  const move = (delta: number) => setActive(index => index === null ? null : (index + delta + photos.length) % photos.length);
+  const move = (delta: number) => {
+    const rail = viewerTrack.current;
+    if (!rail || active === null) return;
+    viewerIndex.current = Math.max(0, Math.min(photos.length - 1, viewerIndex.current + delta));
+    rail.scrollTo({left: viewerIndex.current * rail.clientWidth, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  };
   const cards = visible.map(item => (
     <figure className={`gallery-card gallery-card--${item.gridSize || 'medium'}`} key={item._id}>
       <button className="gallery-photo-button" aria-label={`Enlarge ${item.imageAlt || item.title || 'gallery photo'}`} onClick={event => {
         opener.current = event.currentTarget;
-        setActive(photos.findIndex(photo => photo._id === item._id));
+        viewerIndex.current = photos.findIndex(photo => photo._id === item._id);
+        setActive(viewerIndex.current);
       }}>
         <img src={urlFor(item.image!).width(1400).quality(85).url()} alt={item.imageAlt || item.title || 'Gallery photo'} className="gallery-media-image" loading="lazy" />
       </button>
@@ -74,8 +87,29 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
         if (event.key === 'ArrowRight') {event.preventDefault(); move(1)}
       }}>
         <div className="gallery-lightbox-content">
-          <div className="gallery-controls"><button autoFocus onClick={close}>Close</button>{photos.length > 1 && <><button onClick={() => move(-1)}>Previous</button><button onClick={() => move(1)}>Next</button></>}</div>
-          {selected && <img src={urlFor(selected.image!).width(2400).fit('max').url()} alt={selected.imageAlt || selected.title || 'Gallery photo'} />}
+          <div className="gallery-lightbox-toolbar"><button className="gallery-lightbox-close" autoFocus onClick={close} aria-label="Close enlarged photo">×</button></div>
+          <div className="gallery-lightbox-stage">
+            <div ref={viewerTrack} className="gallery-lightbox-track" aria-label="Photos — swipe to browse" onScroll={event => {
+              const rail = event.currentTarget;
+              if (!isOpen || !dialog.current?.open || !rail.clientWidth) return;
+              const index = Math.round(rail.scrollLeft / rail.clientWidth);
+              setActive(Math.max(0, Math.min(photos.length - 1, index)));
+              // Update the navigation position only once a slide is aligned.
+              if (Math.abs(rail.scrollLeft - index * rail.clientWidth) < 2) viewerIndex.current = index;
+            }}>
+              {isOpen && photos.map((photo, index) => <div className="gallery-lightbox-slide" key={photo._id} aria-hidden={active !== index}>
+                <img src={urlFor(photo.image!).width(2400).fit('max').url()} alt={photo.imageAlt || photo.title || 'Gallery photo'} loading={Math.abs(index - (active ?? 0)) <= 1 ? 'eager' : 'lazy'} draggable={false} />
+              </div>)}
+            </div>
+            {photos.length > 1 && <>
+              <button className="gallery-lightbox-arrow gallery-lightbox-arrow--previous" aria-label="Previous photo" disabled={active === 0} onClick={() => move(-1)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+              </button>
+              <button className="gallery-lightbox-arrow gallery-lightbox-arrow--next" aria-label="Next photo" disabled={active === photos.length - 1} onClick={() => move(1)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+              </button>
+            </>}
+          </div>
           <p aria-live="polite">{active === null ? '' : `${active + 1} / ${photos.length}`}{selected?.title ? ` — ${selected.title}` : ''}</p>
         </div>
       </dialog>
