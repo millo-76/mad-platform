@@ -12,8 +12,8 @@ export const galleryPage = defineType({
   },
   fields: [
     defineField({
-      name: 'galleryStyle', title: 'Default gallery style', type: 'string',
-      description: 'Preview styles in Gallery photos, then publish this setting to choose the view visitors see first.',
+      name: 'galleryStyle', title: 'Default Studio preview style', type: 'string',
+      description: 'Choose which layout opens in the Studio preview. The public gallery displays albums.',
       initialValue: 'grid',
       options: {layout: 'radio', list: [{title: 'Grid', value: 'grid'}, {title: 'Carousel', value: 'carousel'}, {title: 'Albums', value: 'albums'}]},
     }),

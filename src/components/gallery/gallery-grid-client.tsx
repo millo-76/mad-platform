@@ -15,7 +15,11 @@ export type GalleryItem = {
   gridSize?: 'small' | 'medium' | 'large' | 'wide' | 'tall';
 };
 
-export function GalleryGridClient({items, initialStyle = 'grid'}: {items: GalleryItem[]; initialStyle?: GalleryStyle}) {
+export function GalleryGridClient({items, initialStyle = 'albums', showStyleControls = false}: {
+  items: GalleryItem[];
+  initialStyle?: GalleryStyle;
+  showStyleControls?: boolean;
+}) {
   const [style, setStyle] = useState<GalleryStyle>(initialStyle);
   const [album, setAlbum] = useState<string | null>(null);
   const [active, setActive] = useState<number | null>(null);
@@ -66,9 +70,9 @@ export function GalleryGridClient({items, initialStyle = 'grid'}: {items: Galler
 
   return (
     <section className="gallery-experience" aria-label="Photo gallery">
-      <div className="gallery-controls" role="group" aria-label="Gallery style">
+      {showStyleControls && <div className="gallery-controls" role="group" aria-label="Gallery style">
         {(['grid', 'carousel', 'albums'] as const).map(option => <button key={option} className={`btn ${style === option ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={style === option} onClick={() => {setStyle(option); setAlbum(null)}}>{option[0].toUpperCase() + option.slice(1)}</button>)}
-      </div>
+      </div>}
       {!photos.length ? <p>No photos to display yet.</p> : style === 'albums' && !album ? (
         <div className="gallery-albums">{albums.map(name => {
           const members = photos.filter(item => albumName(item) === name);

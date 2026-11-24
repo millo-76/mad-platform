@@ -61,14 +61,14 @@ export function GalleryStudio() {
       <button aria-pressed={!preview} onClick={() => setPreview(false)}>Manage photos</button>
       <button aria-pressed={preview} onClick={() => setPreview(true)}>Preview gallery</button>
     </div>
-    <p>Use Gallery photo order to drag photos into order. Set and publish the default style under Gallery page. Use the same album name on photos you want to group.</p>
+    <p>Use Gallery photo order to drag photos into order. The website displays albums. Use the same album name on photos you want to group.</p>
     {error && <p role="alert">{error}</p>}
     {pending && <section ref={confirmation} tabIndex={-1} role="region" aria-label="Confirm photo deletion" className="studio-gallery-card">
       <h2>Delete {pending.title || pending.filename || 'this photo'}?</h2>
       <p>This permanently deletes the gallery entry, including its draft, and removes it from the website. The uploaded asset stays in the media library so other pages using it are unaffected. Archive the photo instead if you want to reuse this entry later.</p>
       <div className="gallery-controls"><button disabled={deleting} onClick={() => void deletePhoto()}>{deleting ? 'Deleting…' : 'Permanently delete photo'}</button><button disabled={deleting} onClick={() => setPending(null)}>Cancel</button></div>
     </section>}
-    {loading ? <p role="status">Loading photos…</p> : preview ? <GalleryGridClient items={photos.filter(photo => !photo.isArchived)} initialStyle={style} /> : <>
+    {loading ? <p role="status">Loading photos…</p> : preview ? <GalleryGridClient items={photos.filter(photo => !photo.isArchived)} initialStyle={style} showStyleControls /> : <>
       <label><input type="checkbox" checked={archived} onChange={event => setArchived(event.target.checked)} /> Show archived photos</label>
       <div className="studio-gallery-grid">{photos.filter(photo => archived || !photo.isArchived).map(photo => <article key={photo._id} className="studio-gallery-card">
         {photo.image && <img src={urlFor(photo.image).width(600).url()} alt={photo.imageAlt || photo.title || photo.filename || 'Gallery photo'} loading="lazy" />}

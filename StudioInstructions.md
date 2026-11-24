@@ -106,7 +106,7 @@ The homepage code also supports reordering sections, so you can change the narra
 
 Open **Gallery photos** for a visual grid. Choose **Add photo** to upload, or **Edit photo** on a card to change its image, crop/hotspot, size, description, album, or archive setting. Publish photo edits to update the website.
 
-Choose **Preview gallery** to see active photos in their gallery layout, including draft changes. Try **Grid**, **Carousel**, and **Albums** without changing the live site. The preview uses the same gallery component as the website; its width depends on your Studio pane. Open **Gallery page**, set **Default gallery style**, and publish to choose the view visitors see first. Visitors can also switch styles themselves.
+Choose **Preview gallery** to see active photos, including draft changes. Try **Grid**, **Carousel**, and **Albums** in Studio. Set **Default Studio preview style** under **Gallery page** to choose which layout opens in Studio. Visitors always see the album layout.
 
 Give photos the same **Album** name to group them in Albums view. Photos without an album appear under Uncategorized. Use **Gallery photo order** to drag photos into order across the gallery.
 

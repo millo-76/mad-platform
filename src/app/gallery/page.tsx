@@ -18,6 +18,6 @@ export default async function GalleryPage() {
       <h1>{page?.heading || 'A growing collection of recent work'}</h1>
       {page?.sectionCopy && <p className="section-copy">{page.sectionCopy}</p>}
     </section>
-    {failed ? <p role="status">The gallery is temporarily unavailable. Please try again shortly.</p> : <GalleryGridClient items={items} initialStyle={page?.galleryStyle || 'grid'} />}
+    {failed ? <p role="status">The gallery is temporarily unavailable. Please try again shortly.</p> : <GalleryGridClient items={items} />}
   </main>;
 }
